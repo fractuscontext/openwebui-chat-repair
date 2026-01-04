@@ -1,63 +1,58 @@
-# OpenWebUI Chat Repair Tool & Chat Cleaner
+# 🚑 OpenWebUI Chat Repair 
 
-Fix corrupted OpenWebUI chat exports that get stuck on "Loading..." due to detached nodes and broken message chains.
+**Rescue corrupted chat exports that get stuck on the "Loading..." spinner.**
 
 ![](./loading.png)
 
-**🔗 [Launch Tool](https://fractuscontext.github.io/openwebui-fix/)**
+### 🔗 **[Launch the Repair Tool](https://fractuscontext.github.io/openwebui-chat-repair/)**
 
-## The Problem
+---
 
-OpenWebUI chats can become unloadable due to data corruption in the message history structure. The chat opens but shows an infinite loading spinner with no error messages.
+## 🧐 What is this?
 
-**Common causes:**
-- `currentId` points to an orphan message disconnected from the main conversation
-- Messages with missing `parentId` or `childrenIds` fields
-- API errors or third-party tools inserting malformed message nodes
+If you use OpenWebUI, you may have encountered a bug where a specific chat refuses to open, displaying an infinite **"Loading..."** animation.
 
-**Related issues:** [#15189](https://github.com/open-webui/open-webui/issues/15189), [#19225](https://github.com/open-webui/open-webui/issues/19225)
+This usually happens because the chat's internal data structure ("tree") has broken links—often due to network interruptions, API errors, or third-party tools. **This tool fixes the JSON structure so you can import your chat history back into OpenWebUI.**
 
-## Solution
+## ✨ Features
 
-This tool repairs corrupted exports with two modes:
+### 🛡️ Safe Repair (Default)
 
-### 🔧 Repair Mode (Default - Recommended)
-- Finds your largest conversation branch
-- Updates `currentId` to point to the latest valid message
-- Fixes broken parent/child links
-- **Keeps all history intact** — nothing deleted
+* **Fixes the "Loading" Loop:** Reconnects detached messages to the main history.
+* **Restores Access:** Updates the file pointers so the chat opens immediately.
+* **Non-Destructive:** Keeps your *entire* history, including alternate generation branches.
 
-### 🧹 Repair + Prune Mode
-- Performs all repair operations above
-- Traces active conversation from current message to root
-- Deletes all unused branches and orphaned messages
-- Results in smaller file with single conversation path
+### 🧹 Deep Clean (Optional)
 
-## Usage
+* **Prune Mode:** If you check "Prune Unused Branches," the tool will remove all alternate timeline branches, keeping only the single active conversation path.
+* **Result:** A significantly smaller, cleaner file.
 
-1. **Export** your broken chat (three dots → Export Chat → JSON)
-2. **Upload** the JSON file to this tool
-3. **Choose** mode (leave "Prune Unused Branches" unchecked for safety)
-4. **Download** the repaired file
-5. **Import** back into OpenWebUI (Settings → Import Chat)
-6. **Delete** the old corrupted chat
+## 🚀 How to Use
 
-## Privacy
+1. **Export the broken chat** from OpenWebUI (`...` menu → **Export** → **JSON**).
+2. Open the **[Repair Tool](https://fractuscontext.github.io/openwebui-chat-repair/)**.
+3. **Drag & Drop** your JSON file into the box.
+4. **Download** the repaired file (`_repaired.json`).
+5. In OpenWebUI, go to **Settings** → **General** → **Import Chats** and select the fixed file.
+6. *Optional:* Once you confirm the fixed chat works, delete the old corrupted version.
 
-All processing happens locally in your browser using native JavaScript. No external libraries, no data uploads, and no tracking.
+## 🔒 Privacy & Security
 
-## FAQ
+**Your data never leaves your device.**
 
-**Q: Will this delete my messages?**  
-A: Only if you enable "Prune Unused Branches". The default Repair Mode preserves everything.
+* This tool runs entirely in your web browser (Client-Side JavaScript).
+* No chat data is uploaded to any server.
+* No tracking or analytics are used.
 
-**Q: Why does corruption happen?**  
-A: Usually from API integration errors, network failures during message generation, or third-party tools modifying chat data.
+## 🤓 Technical Context
 
-**Q: Can I undo changes?**  
-A: Keep your original export as backup. You can always re-export from OpenWebUI.
+For developers or curious users, this tool resolves `currentId` pointers that reference non-existent nodes and prunes children arrays of invalid IDs.
 
-**Q: Is there an upstream fix?**
-A: See here [here](https://github.com/open-webui/open-webui/issues/19225#issuecomment-3584231544)
+* **Relevant GitHub Issues:** [#15189](https://github.com/open-webui/open-webui/issues/15189), [#19225](https://github.com/open-webui/open-webui/issues/19225)
+* **Upstream Discussion:** [View Comment](https://github.com/open-webui/open-webui/issues/19225#issuecomment-3584231544)
 
-**License:** GPL-3.0-or-later / Copyright (C) 2025 @fractuscontext
+---
+
+**License:** GPL-3.0-or-later
+
+Copyright © 2025-2026 [@fractuscontext](https://github.com/fractuscontext)
