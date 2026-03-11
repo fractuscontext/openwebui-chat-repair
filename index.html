@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenWebUI Chat Cleaner & Repair</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3b82f6">
     <style>
         :root {
             --bg-color: #f4f4f9;
@@ -233,6 +235,13 @@
     <!-- !!!!! -->
 
 <script>
+    if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(() => console.log('App ready for offline use.'))
+            .catch(err => console.error('Service Worker failed', err));
+    });
+}   
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
     const downloadBtn = document.getElementById('downloadBtn');

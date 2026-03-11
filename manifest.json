@@ -1,0 +1,16 @@
+{
+  "name": "OpenWebUI Chat Repair",
+  "short_name": "Chat Repair",
+  "description": "Fix corrupted OpenWebUI chat exports safely and locally.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f4f9",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "./assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
